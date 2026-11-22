@@ -13,6 +13,10 @@ window.SITE = {
   telefone: "(12) 99782-2851",
   instagram: "tico.carpinteiro",
   anos: 30,
+  // Google Ads: preencher quando a conta estiver criada.
+  // googleAds = "AW-123456789", conversao = rótulo da conversão "Clique no WhatsApp"
+  googleAds: "",
+  conversao: "",
 };
 
 // Fotos que rodam na abertura

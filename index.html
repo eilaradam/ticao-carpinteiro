@@ -347,6 +347,17 @@ $$("[data-tel]").forEach(e => e.textContent = S.telefone);
 $$("[data-insta]").forEach(e => e.href = `https://www.instagram.com/${S.instagram}/`);
 $$("[data-zap]").forEach(e => { e.href = zap("Olá, Ticão! Vi seu site e gostaria de um orçamento."); e.target = "_blank"; });
 
+// GOOGLE ADS: conta cada clique no WhatsApp como conversão (liga quando googleAds estiver preenchido no data.js)
+if (S.googleAds) {
+  const g = document.createElement("script"); g.async = true; g.src = "https://www.googletagmanager.com/gtag/js?id=" + S.googleAds; document.head.appendChild(g);
+  window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date()); gtag("config", S.googleAds);
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href*="wa.me"]');
+  if (a && window.gtag && S.conversao) gtag("event", "conversion", { send_to: S.googleAds + "/" + S.conversao });
+});
+
 // HERO
 $("#slides").innerHTML = window.HERO.map((ig, i) => `<div class="slide ${i ? "" : "on"}" style="background-image:url('${foto(ig)}')"></div>`).join("");
 $("#pontos").innerHTML = window.HERO.map((_, i) => `<button data-s="${i}" class="${i ? "" : "on"}"><span>0${i + 1}</span><i></i></button>`).join("");
